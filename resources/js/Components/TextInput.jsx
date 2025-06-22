@@ -1,25 +1,64 @@
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 
-export default forwardRef(function TextInput({ type = 'text', className = '', isFocused = false, ...props }, ref) {
-    const input = ref ? ref : useRef();
+const TextInput = forwardRef(function TextInput(
+    {
+        type = "text",
+        name,
+        value,
+        defaultValue,
+        required,
+        variant = "primary",
+        placeholder,
+        isError = false,
+        className = "",
+        isFocused = false,
+        ...props
+    },
+    ref
+) {
+    const inputRef = ref || useRef();
 
     useEffect(() => {
-        if (isFocused) {
-            input.current.focus();
+        if (isFocused && inputRef.current) {
+            inputRef.current.focus();
         }
-    }, []);
+    }, [isFocused]);
 
     return (
-        <div className="flex flex-col items-start">
+        <div className="flex flex-col items-start w-full">
             <input
                 {...props}
+                ref={inputRef}
+                name={name}
                 type={type}
-                className={
-                    'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm ' +
-                    className
-                }
-                ref={input}
+                value={value}
+                defaultValue={defaultValue}
+                required={required}
+                placeholder={placeholder}
+                className={`
+                  rounded-2xl bg-form-bg py-[13px] px-7 w-full outline-none
+                  ${isError ? "input-error" : ""}
+                  ${isFocused ? "outline-alerange" : ""}
+                  focus:outline-alerange focus:bg-form-bg
+                  ${className}
+                `}
             />
         </div>
     );
 });
+
+TextInput.propTypes = {
+    type: PropTypes.oneOf(["text", "email", "password", "number", "file"]),
+    name: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    className: PropTypes.string,
+    variant: PropTypes.oneOf(["primary", "error", "primary-outline"]),
+    required: PropTypes.bool,
+    placeholder: PropTypes.string,
+    isError: PropTypes.bool,
+    isFocused: PropTypes.bool,
+};
+
+export default TextInput;
