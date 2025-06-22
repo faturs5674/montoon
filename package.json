@@ -25,6 +25,7 @@
         "prop-type": "^0.0.1",
         "prop-types": "^15.8.1",
         "react-flickity-component": "^4.0.0",
-        "react-helmet": "^6.1.0"
+        "react-helmet": "^6.1.0",
+        "react-player": "^2.16.0"
     }
 }

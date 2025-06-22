@@ -37,7 +37,7 @@ export default function Dashboard() {
                                 key={i}
                                 category={"komedi"}
                                 name={"batman"}
-                                slug={"http://google.com"}
+                                slug={"batman"}
                                 rating={2.0}
                                 thumbnail={"/images/browse-1.png"}
                             />
@@ -59,7 +59,7 @@ export default function Dashboard() {
                                 key={i}
                                 category={"komedi"}
                                 name={"batman"}
-                                slug={"http://google.com"}
+                                slug={"batman"}
                                 thumbnail={"/images/browse-1.png"}
                             />
                         );
